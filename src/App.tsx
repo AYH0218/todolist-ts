@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 
 function App() {
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState('');
   const [todos, setTodos] = useState<Todo[]>([]);
 
   type Todo = {
@@ -27,12 +27,12 @@ function App() {
     };
 
     setTodos([newTodo, ...todos]);
-    setInputValue("");
+    setInputValue('');
   };
 
   const handleEdit = (id: number, inputValue: string) => {
     const newTodos = todos.map((todo) => {
-      if(todo.id === id) {
+      if (todo.id === id) {
         todo.inputValue = inputValue;
       }
       return todo;
@@ -43,7 +43,7 @@ function App() {
 
   const handleChecked = (id: number, checked: boolean) => {
     const newTodos = todos.map((todo) => {
-      if(todo.id === id) {
+      if (todo.id === id) {
         todo.checked = !checked;
       }
       return todo;
@@ -62,7 +62,7 @@ function App() {
       <div>
         <h2>Todoリスト React + TypeScript</h2>
         <form onSubmit={(e) => handleSubmit(e)}>
-          <input type="text" onChange={(e) => handleChange(e)} className="inputText" />
+          <input type="text" value={inputValue} onChange={(e) => handleChange(e)} className="inputText" />
           <input type="submit" value="作成" className="submitButton" />
         </form>
         <ul className="todoList">
@@ -75,10 +75,7 @@ function App() {
                 value={todo.inputValue}
                 disabled={todo.checked}
               />
-              <input
-                type="checkbox"
-                onChange={(e) => handleChecked(todo.id, todo.checked)}
-              />
+              <input type="checkbox" onChange={(e) => handleChecked(todo.id, todo.checked)} />
               <button onClick={() => handleDelete(todo.id)}>消</button>
             </li>
           ))}
